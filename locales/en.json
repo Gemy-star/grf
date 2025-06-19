@@ -1,0 +1,80 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "retry": "Try Again",
+    "refresh": "Refresh",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "share": "Share",
+    "like": "Like",
+    "comment": "Comment",
+    "back": "Back",
+    "next": "Next",
+    "done": "Done",
+    "close": "Close"
+  },
+  "navigation": {
+    "home": "Home",
+    "news": "News", 
+    "weather": "Weather",
+    "profile": "Profile"
+  },
+  "home": {
+    "title": "Global Resource Finder",
+    "subtitle": "Stay connected with the latest updates",
+    "recentPosts": "Recent Posts",
+    "activeUsers": "Active Users",
+    "growth": "Growth",
+    "recentActivity": "Recent Activity",
+    "hoursAgo": "{{count}} hours ago"
+  },
+  "news": {
+    "title": "Latest News",
+    "subtitle": "Stay informed with recent updates",
+    "noNews": "No news available",
+    "loadingNews": "Loading news..."
+  },
+  "weather": {
+    "title": "Weather",
+    "currentLocation": "Current Location",
+    "pleasant": "Pleasant",
+    "cool": "Cool",
+    "hot": "Hot",
+    "cold": "Cold",
+    "windSpeed": "Wind Speed",
+    "precipitation": "Precipitation",
+    "hourlyForecast": "Hourly Forecast",
+    "locationPermissionDenied": "Location permission denied",
+    "weatherUnavailable": "Weather data unavailable"
+  },
+  "profile": {
+    "title": "Profile",
+    "personalInformation": "Personal Information",
+    "email": "Email",
+    "phone": "Phone",
+    "website": "Website",
+    "preferences": "Preferences",
+    "notifications": "Notifications",
+    "darkMode": "Dark Mode",
+    "language": "Language",
+    "privacySecurity": "Privacy & Security",
+    "appSettings": "App Settings",
+    "about": "About",
+    "aboutText": "GRF (Global Resource Finder) helps you stay connected with the latest news, weather updates, and global information. Version 1.0.0",
+    "signOut": "Sign Out"
+  },
+  "languages": {
+    "english": "English",
+    "arabic": "العربية"
+  },
+  "errors": {
+    "networkError": "Network connection error",
+    "serverError": "Server error occurred",
+    "unknownError": "An unknown error occurred",
+    "locationError": "Unable to get location",
+    "permissionDenied": "Permission denied"
+  }
+}

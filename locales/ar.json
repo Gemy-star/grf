@@ -1,0 +1,80 @@
+{
+  "common": {
+    "loading": "جاري التحميل...",
+    "error": "حدث خطأ ما",
+    "retry": "حاول مرة أخرى",
+    "refresh": "تحديث",
+    "cancel": "إلغاء",
+    "save": "حفظ",
+    "edit": "تعديل",
+    "delete": "حذف",
+    "share": "مشاركة",
+    "like": "إعجاب",
+    "comment": "تعليق",
+    "back": "رجوع",
+    "next": "التالي",
+    "done": "تم",
+    "close": "إغلاق"
+  },
+  "navigation": {
+    "home": "الرئيسية",
+    "news": "الأخبار",
+    "weather": "الطقس",
+    "profile": "الملف الشخصي"
+  },
+  "home": {
+    "title": "باحث الموارد العالمية",
+    "subtitle": "ابق على اتصال مع آخر التحديثات",
+    "recentPosts": "المنشورات الحديثة",
+    "activeUsers": "المستخدمون النشطون",
+    "growth": "النمو",
+    "recentActivity": "النشاط الحديث",
+    "hoursAgo": "منذ {{count}} ساعات"
+  },
+  "news": {
+    "title": "آخر الأخبار",
+    "subtitle": "ابق مطلعاً على التحديثات الحديثة",
+    "noNews": "لا توجد أخبار متاحة",
+    "loadingNews": "جاري تحميل الأخبار..."
+  },
+  "weather": {
+    "title": "الطقس",
+    "currentLocation": "الموقع الحالي",
+    "pleasant": "لطيف",
+    "cool": "بارد",
+    "hot": "حار",
+    "cold": "بارد جداً",
+    "windSpeed": "سرعة الرياح",
+    "precipitation": "هطول الأمطار",
+    "hourlyForecast": "توقعات الساعة",
+    "locationPermissionDenied": "تم رفض إذن الموقع",
+    "weatherUnavailable": "بيانات الطقس غير متاحة"
+  },
+  "profile": {
+    "title": "الملف الشخصي",
+    "personalInformation": "المعلومات الشخصية",
+    "email": "البريد الإلكتروني",
+    "phone": "الهاتف",
+    "website": "الموقع الإلكتروني",
+    "preferences": "التفضيلات",
+    "notifications": "الإشعارات",
+    "darkMode": "الوضع المظلم",
+    "language": "اللغة",
+    "privacySecurity": "الخصوصية والأمان",
+    "appSettings": "إعدادات التطبيق",
+    "about": "حول",
+    "aboutText": "باحث الموارد العالمية (GRF) يساعدك على البقاء متصلاً مع آخر الأخبار وتحديثات الطقس والمعلومات العالمية. الإصدار 1.0.0",
+    "signOut": "تسجيل الخروج"
+  },
+  "languages": {
+    "english": "English",
+    "arabic": "العربية"
+  },
+  "errors": {
+    "networkError": "خطأ في الاتصال بالشبكة",
+    "serverError": "حدث خطأ في الخادم",
+    "unknownError": "حدث خطأ غير معروف",
+    "locationError": "تعذر الحصول على الموقع",
+    "permissionDenied": "تم رفض الإذن"
+  }
+}
