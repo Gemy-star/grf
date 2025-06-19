@@ -6,7 +6,8 @@ node_modules/
 dist/
 web-build/
 expo-env.d.ts
-
+.idea/
+.bolt/
 # native
 *.orig.*
 *.jks
