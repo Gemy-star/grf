@@ -1,56 +1,48 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { useColorScheme } from 'react-native';
-import { Colors, ColorScheme, ThemeColors } from '@/constants/Colors';
+import { Colors, ColorScheme, ThemeColors } from '@/constants/Colors'; // Adjust import path as needed
+import React, { createContext, ReactNode, useContext, useState } from 'react';
 
 interface ThemeContextType {
-  colorScheme: ColorScheme;
   colors: ThemeColors;
-  toggleColorScheme: () => void;
+  colorScheme: ColorScheme;
   setColorScheme: (scheme: ColorScheme) => void;
+  toggleColorScheme: () => void;
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-interface ThemeProviderProps {
-  children: ReactNode;
-}
-
-export function ThemeProvider({ children }: ThemeProviderProps) {
-  const systemColorScheme = useColorScheme();
-  const [colorScheme, setColorSchemeState] = useState<ColorScheme>(systemColorScheme || 'light');
-
-  useEffect(() => {
-    if (systemColorScheme) {
-      setColorSchemeState(systemColorScheme);
-    }
-  }, [systemColorScheme]);
+export const ThemeProvider = ({ children }: { children: ReactNode }) => {
+  const [colorScheme, setColorScheme] = useState<ColorScheme>('dark'); // Default to dark theme
 
   const colors = Colors[colorScheme];
 
   const toggleColorScheme = () => {
-    setColorSchemeState(prev => prev === 'light' ? 'dark' : 'light');
-  };
-
-  const setColorScheme = (scheme: ColorScheme) => {
-    setColorSchemeState(scheme);
+    setColorScheme((prev) => (prev === 'light' ? 'dark' : 'light'));
   };
 
   return (
-    <ThemeContext.Provider value={{
-      colorScheme,
-      colors,
-      toggleColorScheme,
-      setColorScheme,
-    }}>
+    <ThemeContext.Provider
+      value={{
+        colors,
+        colorScheme,
+        setColorScheme,
+        toggleColorScheme,
+      }}
+    >
       {children}
     </ThemeContext.Provider>
   );
-}
+};
 
-export function useTheme() {
+export const useTheme = () => {
   const context = useContext(ThemeContext);
-  if (context === undefined) {
-    throw new Error('useTheme must be used within a ThemeProvider');
+  if (!context) {
+    console.warn('useTheme must be used within a ThemeProvider');
+    return {
+      colors: Colors.dark, // Default fallback to dark theme
+      colorScheme: 'dark' as ColorScheme,
+      setColorScheme: () => {},
+      toggleColorScheme: () => {},
+    };
   }
   return context;
-}
+};

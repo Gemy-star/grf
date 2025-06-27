@@ -17,8 +17,8 @@
     "close": "Close"
   },
   "navigation": {
-    "home": "Home",
-    "news": "News", 
+    "index": "Home",
+    "news": "News",
     "weather": "Weather",
     "profile": "Profile"
   },

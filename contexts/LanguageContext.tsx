@@ -1,79 +1,67 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { I18nManager } from 'react-native';
-import * as Localization from 'expo-localization';
-import i18n from 'i18next';
-import { initReactI18next } from 'react-i18next';
-import en from '@/locales/en.json';
 import ar from '@/locales/ar.json';
+import en from '@/locales/en.json';
+import React, { createContext, ReactNode, useContext, useState } from 'react';
 
-// Initialize i18n
-i18n
-  .use(initReactI18next)
-  .init({
-    resources: {
-      en: { translation: en },
-      ar: { translation: ar },
-    },
-    lng: Localization.locale.startsWith('ar') ? 'ar' : 'en',
-    fallbackLng: 'en',
-    interpolation: {
-      escapeValue: false,
-    },
-  });
-
-export type Language = 'en' | 'ar';
+type SupportedLanguage = 'en' | 'ar';
 
 interface LanguageContextType {
-  language: Language;
-  isRTL: boolean;
-  changeLanguage: (lang: Language) => void;
-  t: (key: string, options?: any) => string;
+  language: SupportedLanguage;
+  setLanguage: (language: SupportedLanguage) => void;
+  t: (key: string, params?: Record<string, string | number>) => string;
 }
 
-const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+const translations: Record<SupportedLanguage, Record<string, any>> = {
+  en,
+  ar,
+};
 
-interface LanguageProviderProps {
-  children: ReactNode;
+const LanguageContext = createContext<LanguageContextType | undefined>(
+  undefined,
+);
+
+function getNestedValue(
+  obj: Record<string, any>,
+  path: string,
+): string | undefined {
+  return path.split('.').reduce((acc, key) => acc?.[key], obj);
 }
 
-export function LanguageProvider({ children }: LanguageProviderProps) {
-  const [language, setLanguage] = useState<Language>(
-    Localization.locale.startsWith('ar') ? 'ar' : 'en'
+function interpolate(
+  str: string,
+  params?: Record<string, string | number>,
+): string {
+  if (!params) return str;
+  return str.replace(
+    /\{\{(.*?)\}\}/g,
+    (_, key) => `${params[key.trim()] ?? ''}`,
   );
-  const [isRTL, setIsRTL] = useState(language === 'ar');
+}
 
-  useEffect(() => {
-    const rtl = language === 'ar';
-    setIsRTL(rtl);
-    I18nManager.allowRTL(rtl);
-    I18nManager.forceRTL(rtl);
-  }, [language]);
+export const LanguageProvider = ({ children }: { children: ReactNode }) => {
+  const [language, setLanguage] = useState<SupportedLanguage>('ar');
 
-  const changeLanguage = async (lang: Language) => {
-    setLanguage(lang);
-    await i18n.changeLanguage(lang);
-  };
-
-  const t = (key: string, options?: any) => {
-    return i18n.t(key, options);
+  const t = (key: string, params?: Record<string, string | number>): string => {
+    const raw = getNestedValue(translations[language], key);
+    if (!raw) return key;
+    return interpolate(raw, params);
   };
 
   return (
-    <LanguageContext.Provider value={{
-      language,
-      isRTL,
-      changeLanguage,
-      t,
-    }}>
+    <LanguageContext.Provider value={{ language, setLanguage, t }}>
       {children}
     </LanguageContext.Provider>
   );
-}
+};
 
-export function useLanguage() {
+export const useLanguage = (): LanguageContextType => {
   const context = useContext(LanguageContext);
-  if (context === undefined) {
-    throw new Error('useLanguage must be used within a LanguageProvider');
+  if (!context) {
+    console.warn('useLanguage must be used within a LanguageProvider');
+    return {
+      language: 'ar',
+      setLanguage: () => {},
+      t: (key: string) => key,
+    };
   }
   return context;
-}
+};

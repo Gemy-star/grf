@@ -6,13 +6,13 @@ export function useApi<T>(
   dependencies: any[] = []
 ) {
   const [data, setData] = useState<T | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   const fetchData = async () => {
     setLoading(true);
     setError(null);
-    
+
     try {
       const response = await apiCall();
       if (response.success) {
@@ -20,7 +20,7 @@ export function useApi<T>(
       } else {
         setError(response.error || 'An error occurred');
       }
-    } catch (err) {
+    } catch (err: any) {
       setError(err instanceof Error ? err.message : 'An error occurred');
     } finally {
       setLoading(false);
@@ -29,11 +29,8 @@ export function useApi<T>(
 
   useEffect(() => {
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, dependencies);
 
-  const refetch = () => {
-    fetchData();
-  };
-
-  return { data, loading, error, refetch };
+  return { data, loading, error, refetch: fetchData };
 }
