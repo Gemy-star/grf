@@ -20,6 +20,10 @@
     "welcome": " Welcome {{name}}",
     "subtitle": "Global Ranking Conference 2025"
   },
+  "welcomeCard": {
+    "title": "Welcome to the Global Classification Forum in Saudi Arabia",
+    "subtitle": "We are pleased to have you participate in the Global Classification Forum. Browse your event schedule, venue locations, and featured speakers."
+  },
   "navigation": {
     "index": "Home",
     "news": "News",

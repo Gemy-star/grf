@@ -1,3 +1,4 @@
+import WelcomeCard from '@/components/welcomeCard';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useTypography } from '@/hooks/useTypography';
@@ -8,17 +9,30 @@ export default function HomeScreen() {
   const { colors } = useTheme();
   const { t, language } = useLanguage();
   const { getTextStyle } = useTypography();
+  const isRTL = language === 'ar';
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
+    <View
+      style={[
+        styles.container,
+        {
+          backgroundColor: colors.background,
+          flexDirection: 'column',
+          alignItems: 'stretch',
+          writingDirection: isRTL ? 'rtl' : 'ltr',
+        },
+      ]}
+    >
+      <WelcomeCard />
+
       <Text
         style={[
-          styles.title,
           getTextStyle('xl', 'bold'),
+          styles.title,
           {
             color: colors.text,
-            textAlign: language === 'ar' ? 'right' : 'left',
-            writingDirection: language === 'ar' ? 'rtl' : 'ltr',
+            textAlign: isRTL ? 'right' : 'left',
+            marginTop: 24,
           },
         ]}
       >
@@ -31,13 +45,9 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     padding: 20,
   },
   title: {
-    // base size and weight are overridden by getTextStyle
-    fontSize: 24,
-    fontWeight: 'bold',
+    // Only spacing or custom tweaks here
   },
 });
