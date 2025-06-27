@@ -16,6 +16,10 @@
     "done": "Done",
     "close": "Close"
   },
+  "header": {
+    "welcome": " Welcome {{name}}",
+    "subtitle": "Global Ranking Conference 2025"
+  },
   "navigation": {
     "index": "Home",
     "news": "News",

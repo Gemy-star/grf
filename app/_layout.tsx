@@ -1,3 +1,4 @@
+import Header from '@/components/header';
 import { LanguageProvider } from '@/contexts/LanguageContext';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import { useFonts } from 'expo-font';
@@ -22,9 +23,13 @@ export default function RootLayout() {
   return (
     <ThemeProvider>
       <LanguageProvider>
-        <Stack screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="index" />
-        </Stack>
+        <View style={{ flex: 1 }}>
+          {/* Custom Header */}
+          <Header />
+
+          {/* Navigation stack */}
+          <Stack screenOptions={{ headerShown: false }} />
+        </View>
       </LanguageProvider>
     </ThemeProvider>
   );

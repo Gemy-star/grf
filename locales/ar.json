@@ -16,6 +16,10 @@
     "done": "تم",
     "close": "إغلاق"
   },
+  "header": {
+    "welcome": "مرحباً بك {{name}}",
+    "subtitle": "مؤتمر التصنيف العالمي 2025"
+  },
   "navigation": {
     "index": "الرئيسية",
     "news": "الأخبار",
