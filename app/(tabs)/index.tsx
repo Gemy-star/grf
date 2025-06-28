@@ -1,9 +1,10 @@
+import { ThemedView } from '@/components/ThemedView';
 import WelcomeCard from '@/components/welcomeCard';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useTypography } from '@/hooks/useTypography';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 
 export default function HomeScreen() {
   const { colors } = useTheme();
@@ -12,7 +13,7 @@ export default function HomeScreen() {
   const isRTL = language === 'ar';
 
   return (
-    <View
+    <ThemedView
       style={[
         styles.container,
         {
@@ -38,7 +39,7 @@ export default function HomeScreen() {
       >
         {t('home.title') || 'Home'}
       </Text>
-    </View>
+    </ThemedView>
   );
 }
 

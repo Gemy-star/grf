@@ -1,11 +1,21 @@
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useSidebar } from '@/contexts/SidebarContext';
 import { Feather, Ionicons } from '@expo/vector-icons';
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { ThemedText } from './ThemedText';
+import { ThemedView } from './ThemedView';
 
 const Header = () => {
   const { language, t } = useLanguage();
   const isRTL = language === 'ar';
+  const { toggleSidebar } = useSidebar();
+
+  const MenuIcon = (
+    <TouchableOpacity style={styles.iconWrapper} onPress={toggleSidebar}>
+      <Feather name="menu" size={24} color="#fff" />
+    </TouchableOpacity>
+  );
 
   const FavoriteIcon = (
     <TouchableOpacity style={styles.iconWrapper}>
@@ -13,29 +23,24 @@ const Header = () => {
     </TouchableOpacity>
   );
 
-  const MenuIcon = (
-    <TouchableOpacity style={styles.iconWrapper}>
-      <Feather name="menu" size={24} color="#fff" />
-    </TouchableOpacity>
-  );
-
   return (
-    <View style={[styles.container, isRTL && styles.rtl]}>
-      {isRTL ? MenuIcon : FavoriteIcon}
+    <ThemedView style={[styles.container, isRTL && styles.rtl]}>
+      {/* Left Icon */}
+      <View style={styles.sideIcon}>{isRTL ? MenuIcon : FavoriteIcon}</View>
 
-      <View style={styles.textContainer}>
-        <Text
-          style={[styles.welcomeText, { textAlign: isRTL ? 'right' : 'left' }]}
-        >
+      {/* Text Block */}
+      <ThemedView style={styles.textContainer}>
+        <ThemedText style={[styles.welcomeText, { textAlign: isRTL ? 'right' : 'left' }]}>
           👋 {t('header.welcome', { name: 'عبد الرحمن' }) || 'Welcome'}
-        </Text>
-        <Text style={[styles.subText, { textAlign: isRTL ? 'right' : 'left' }]}>
+        </ThemedText>
+        <ThemedText style={[styles.subText, { textAlign: isRTL ? 'right' : 'left' }]}>
           {t('header.subtitle') || 'Global Ranking Conference 2025'}
-        </Text>
-      </View>
+        </ThemedText>
+      </ThemedView>
 
-      {isRTL ? FavoriteIcon : MenuIcon}
-    </View>
+      {/* Right Icon */}
+      <View style={styles.sideIcon}>{isRTL ? FavoriteIcon : MenuIcon}</View>
+    </ThemedView>
   );
 };
 
@@ -51,6 +56,10 @@ const styles = StyleSheet.create({
   rtl: {
     flexDirection: 'row-reverse',
   },
+  sideIcon: {
+    width: 40,
+    alignItems: 'center',
+  },
   iconWrapper: {
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
     padding: 10,
@@ -59,6 +68,7 @@ const styles = StyleSheet.create({
   textContainer: {
     flex: 1,
     paddingHorizontal: 12,
+    backgroundColor: 'transparent',
   },
   welcomeText: {
     color: '#fff',

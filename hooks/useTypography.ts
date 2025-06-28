@@ -1,40 +1,109 @@
-import { Typography } from '@/constants/Typography';
+// hooks/useTypography.ts
+import { FontFamily, Typography } from '@/constants/Typography';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { useMemo } from 'react';
 
-export function useTypography() {
+export const useTypography = () => {
   const { language } = useLanguage();
 
-  const fontFamily = useMemo(() => {
-    return language === 'ar'
-      ? Typography.fontFamilyArabic
-      : Typography.fontFamily;
-  }, [language]);
-
   const getTextStyle = (
-    size: keyof typeof Typography.fontSize = 'base',
-    weight: keyof typeof Typography.fontWeight = 'normal',
+    size?: keyof typeof Typography.fontSize,
+    weight?: keyof typeof Typography.fontWeight,
+    letterSpacing?: keyof typeof Typography.letterSpacing,
   ) => {
-    const fontFamilyKey =
-      weight === 'normal'
-        ? 'regular'
-        : weight === 'medium'
-          ? 'medium'
-          : weight === 'semibold'
-            ? 'semiBold'
-            : 'bold';
+    const isArabic = language === 'ar';
 
     return {
-      fontFamily: fontFamily[fontFamilyKey],
-      fontSize: Typography.fontSize[size],
-      lineHeight: Typography.lineHeight[size],
-      fontWeight: Typography.fontWeight[weight],
+      fontSize: size ? Typography.fontSize[size] : Typography.fontSize.base,
+      fontWeight: weight
+        ? Typography.fontWeight[weight]
+        : Typography.fontWeight.normal,
+      lineHeight: size
+        ? Typography.lineHeight[size]
+        : Typography.lineHeight.base,
+      letterSpacing: letterSpacing
+        ? Typography.letterSpacing[letterSpacing]
+        : Typography.letterSpacing.normal,
+      fontFamily: isArabic ? FontFamily.arabic : FontFamily.system,
+      // RTL support for Arabic
+      textAlign: isArabic ? 'right' : 'left',
+      writingDirection: isArabic ? 'rtl' : 'ltr',
     };
   };
 
-  return {
-    fontFamily,
-    getTextStyle,
-    ...Typography,
+  const getVariantStyle = (variant: string) => {
+    const isArabic = language === 'ar';
+
+    const baseStyle = {
+      fontFamily: isArabic ? FontFamily.arabic : FontFamily.system,
+      textAlign: isArabic ? 'right' : 'left',
+      writingDirection: isArabic ? 'rtl' : 'ltr',
+    };
+
+    switch (variant) {
+      case 'h1':
+        return {
+          ...baseStyle,
+          fontSize: Typography.fontSize['4xl'],
+          fontWeight: Typography.fontWeight.bold,
+          lineHeight: Typography.lineHeight['4xl'],
+        };
+      case 'h2':
+        return {
+          ...baseStyle,
+          fontSize: Typography.fontSize['3xl'],
+          fontWeight: Typography.fontWeight.bold,
+          lineHeight: Typography.lineHeight['3xl'],
+        };
+      case 'h3':
+        return {
+          ...baseStyle,
+          fontSize: Typography.fontSize['2xl'],
+          fontWeight: Typography.fontWeight.semibold,
+          lineHeight: Typography.lineHeight['2xl'],
+        };
+      case 'title':
+        return {
+          ...baseStyle,
+          fontSize: Typography.fontSize['4xl'],
+          fontWeight: Typography.fontWeight.bold,
+          lineHeight: Typography.lineHeight['4xl'],
+        };
+      case 'heading':
+        return {
+          ...baseStyle,
+          fontSize: Typography.fontSize['2xl'],
+          fontWeight: Typography.fontWeight.semibold,
+          lineHeight: Typography.lineHeight['2xl'],
+        };
+      case 'subtitle':
+        return {
+          ...baseStyle,
+          fontSize: Typography.fontSize.lg,
+          fontWeight: Typography.fontWeight.medium,
+          lineHeight: Typography.lineHeight.lg,
+        };
+      case 'caption':
+        return {
+          ...baseStyle,
+          fontSize: Typography.fontSize.sm,
+          fontWeight: Typography.fontWeight.normal,
+          lineHeight: Typography.lineHeight.sm,
+        };
+      case 'body':
+      default:
+        return {
+          ...baseStyle,
+          fontSize: Typography.fontSize.base,
+          fontWeight: Typography.fontWeight.normal,
+          lineHeight: Typography.lineHeight.base,
+        };
+    }
   };
-}
+
+  return {
+    getTextStyle,
+    getVariantStyle,
+    isArabic: language === 'ar',
+    fontFamily: language === 'ar' ? FontFamily.arabic : FontFamily.system,
+  };
+};

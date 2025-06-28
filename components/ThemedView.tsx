@@ -1,6 +1,6 @@
+import { useTheme } from '@/contexts/ThemeContext';
 import React from 'react';
 import { View, ViewProps } from 'react-native';
-import { useTheme } from '@/contexts/ThemeContext';
 
 interface ThemedViewProps extends ViewProps {
   backgroundColor?: string;
@@ -16,17 +16,11 @@ export function ThemedView({
 }: ThemedViewProps) {
   const { colors } = useTheme();
 
-  const bgColor = backgroundColor || 
-                  (surface ? colors.surface : colors.background);
+  const bgColor =
+    backgroundColor || (surface ? colors.surface : colors.background);
 
   return (
-    <View
-      style={[
-        { backgroundColor: bgColor },
-        style,
-      ]}
-      {...props}
-    >
+    <View style={[{ backgroundColor: bgColor }, style]} {...props}>
       {children}
     </View>
   );

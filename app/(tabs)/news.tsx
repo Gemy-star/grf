@@ -1,18 +1,22 @@
+import { ThemedText } from '@/components/ThemedText';
+import { ThemedView } from '@/components/ThemedView';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useTheme } from '@/contexts/ThemeContext';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 export default function NewsScreen() {
   const { colors = { background: '#fff', text: '#000' } } = useTheme() || {};
   const { t = (key: string) => key } = useLanguage() || {};
 
   return (
-    <View style={[styles.container, { backgroundColor: colors.background }]}>
-      <Text style={[styles.title, { color: colors.text }]}>
+    <ThemedView
+      style={[styles.container, { backgroundColor: colors.background }]}
+    >
+      <ThemedText style={[styles.title, { color: colors.text }]}>
         {t('news.title')}
-      </Text>
-    </View>
+      </ThemedText>
+    </ThemedView>
   );
 }
 

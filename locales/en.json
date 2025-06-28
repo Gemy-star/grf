@@ -24,6 +24,16 @@
     "title": "Welcome to the Global Classification Forum in Saudi Arabia",
     "subtitle": "We are pleased to have you participate in the Global Classification Forum. Browse your event schedule, venue locations, and featured speakers."
   },
+  "sidebar": {
+    "welcome": "Welcome",
+    "subtitle": "Global Ranking Conference",
+    "eventSchedule": "Event Schedule",
+    "speakers": "Speakers",
+    "attendees": "Attendees",
+    "exhibitions": "Exhibitions",
+    "floorPlan": "Floor Plan",
+    "location": "Location"
+  },
   "navigation": {
     "index": "Home",
     "news": "News",

@@ -1,10 +1,24 @@
 import Header from '@/components/header';
+import Sidebar from '@/components/sidebar';
 import { LanguageProvider } from '@/contexts/LanguageContext';
+import { LoadingProvider } from '@/contexts/LoadingContext';
+import { SidebarProvider, useSidebar } from '@/contexts/SidebarContext';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import React from 'react';
-import { ActivityIndicator, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
+
+const LayoutContent = () => {
+  const { isVisible } = useSidebar();
+
+  return (
+    <View style={styles.contentArea}>
+      <Header />
+      {isVisible ? <Sidebar /> : <Stack screenOptions={{ headerShown: false }} />}
+    </View>
+  );
+};
 
 export default function RootLayout() {
   const [fontsLoaded] = useFonts({
@@ -14,7 +28,7 @@ export default function RootLayout() {
 
   if (!fontsLoaded) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={styles.loaderContainer}>
         <ActivityIndicator size="large" color="#007AFF" />
       </View>
     );
@@ -23,14 +37,29 @@ export default function RootLayout() {
   return (
     <ThemeProvider>
       <LanguageProvider>
-        <View style={{ flex: 1 }}>
-          {/* Custom Header */}
-          <Header />
-
-          {/* Navigation stack */}
-          <Stack screenOptions={{ headerShown: false }} />
-        </View>
+        <SidebarProvider>
+          <LoadingProvider>
+            <View style={styles.appContainer}>
+              <LayoutContent />
+            </View>
+          </LoadingProvider>
+        </SidebarProvider>
       </LanguageProvider>
     </ThemeProvider>
   );
 }
+
+const styles = StyleSheet.create({
+  loaderContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  appContainer: {
+    flex: 1,
+    flexDirection: 'column',
+  },
+  contentArea: {
+    flex: 1,
+  },
+});

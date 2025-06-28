@@ -25,11 +25,6 @@ export default function TabLayout() {
   return (
     <Tabs
       screenOptions={({ route }) => {
-        const iconProps = {
-          size: 24,
-          color: tabColors.tabBarInactive,
-        };
-
         let IconComponent;
         switch (route.name) {
           case 'index':
@@ -54,6 +49,7 @@ export default function TabLayout() {
             backgroundColor: tabColors.tabBarBackground,
             borderTopColor: tabColors.tabBarBorder,
             borderTopWidth: 2,
+            elevation: 0,
           },
           tabBarActiveTintColor: tabColors.tabBarActive,
           tabBarInactiveTintColor: tabColors.tabBarInactive,
@@ -65,9 +61,7 @@ export default function TabLayout() {
             marginTop: 4,
             ...(getTextStyle?.('xs', 'semibold') || {}),
           },
-          tabBarIcon: ({ color, size }) => (
-            <IconComponent color={color} size={size} />
-          ),
+          tabBarIcon: ({ color, size }) => <IconComponent color={color} size={size} />,
         };
       }}
     />
